@@ -1,7 +1,8 @@
-# myapp.rb
 require 'sinatra'
+require 'grape'
 
-get '/' do
-  'Hello world!'
+class API < Grape::API
+  get :hello do
+    { hello: 'world' }
+  end
 end
-
