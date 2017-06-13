@@ -1,8 +1,17 @@
 require 'sinatra'
 require 'grape'
 
-class API < Grape::API
-  get :hello do
-    { hello: 'world' }
-  end
+module UserSegmentation
+    class API < Grape::API
+        version 'v1', using: :path
+        format :json
+        prefix :api
+
+        resource :users do
+            desc 'Return a sample for get.'
+            get do
+                { hello: 'world!!!' }
+            end
+        end
+    end
 end

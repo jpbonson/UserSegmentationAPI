@@ -1,3 +1,3 @@
 require './main'
 
-run Rack::Cascade.new [API]
+run Rack::Cascade.new [UserSegmentation::API]

@@ -16,7 +16,7 @@ rackup config.ru -p 9999
 
 # Example
 
-curl http://localhost:9999/hello
+curl http://localhost:9999/api/v1/users
 
 # Some References
 
