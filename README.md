@@ -24,6 +24,11 @@ Ruby:
 http://www.cheat-sheets.org/saved-copy/RubyCheat.pdf
 http://www.rubyinside.com/ruby-cheat-sheet-734.html
 http://shipit.resultadosdigitais.com.br/blog/composicao-e-heranca-no-ruby/
+http://shipit.resultadosdigitais.com.br/blog/dicas-de-design-orientado-a-objetos-com-ruby-parte-3/
+http://shipit.resultadosdigitais.com.br/blog/40-boas-praticas-de-ruby-parte-1/
+http://shipit.resultadosdigitais.com.br/blog/40-boas-praticas-de-ruby-parte-2/
+http://shipit.resultadosdigitais.com.br/blog/dicas-de-design-orientado-a-objetos-com-ruby-parte-1/
+http://shipit.resultadosdigitais.com.br/blog/dicas-de-design-orientado-a-objetos-com-ruby-parte-2/
 
 APIs:
 http://brisruby.org/building-apis-with-grape
@@ -52,10 +57,19 @@ http://api.mongodb.com/ruby/current/Mongo/Collection/View.html
 
 Tests:
 http://blog.brianguthrie.com/2011/03/29/when-to-use-rspec-when-to-use-cucumber/
+https://stackoverflow.com/questions/11762245/whats-the-difference-between-rspec-and-cucumber
 https://github.com/teamcapybara/capybara
 http://shipit.resultadosdigitais.com.br/blog/estruturando-seu-projeto-com-bdd-e-cucumber/
+http://shipit.resultadosdigitais.com.br/blog/o-processo-de-garantia-de-qualidade-em-um-ambiente-agil/
+http://shipit.resultadosdigitais.com.br/blog/rspec-performance-tips/
+https://stackoverflow.com/questions/1479361/what-is-the-community-preferred-ruby-unit-testing-framework
 
 Extras:
+http://shipit.resultadosdigitais.com.br/blog/materiais-abertos-recomendados-onboarding-desenvolvedores/
 http://shipit.resultadosdigitais.com.br/blog/ganhando-produtividade-com-clean-code/
 https://stackoverflow.com/questions/5758276/how-do-i-install-ruby-gems-when-using-rvm
 https://stackoverflow.com/questions/3009477/what-is-rubys-double-colon
+http://shipit.resultadosdigitais.com.br/blog/o-processo-de-garantia-de-qualidade-em-um-ambiente-agil/
+http://shipit.resultadosdigitais.com.br/blog/como-fazer-uma-boa-revisao-de-codigo/
+http://shipit.resultadosdigitais.com.br/blog/evitando-problemas-com-elasticsearch-parte-1-analise/
+http://shipit.resultadosdigitais.com.br/blog/alta-disponibilidade-e-tolerancia-a-falhas-com-mongodb/
