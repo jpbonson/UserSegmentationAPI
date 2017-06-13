@@ -35,6 +35,9 @@ http://www.rubydoc.info/
 https://github.com/ruby-grape/grape
 https://github.com/katgironpe/sinatra-mongodb-grape
 
+Heroku:
+https://devcenter.heroku.com/articles/rack
+
 Extras:
 https://stackoverflow.com/questions/5758276/how-do-i-install-ruby-gems-when-using-rvm
 https://stackoverflow.com/questions/3009477/what-is-rubys-double-colon
