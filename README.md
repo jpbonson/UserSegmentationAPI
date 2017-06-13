@@ -18,6 +18,12 @@ rackup config.ru -p 9999
 
 curl http://localhost:9999/api/v1/users
 
+curl -H "Content-Type: application/json" -X POST -d '{"email":"xyz2", "name":"blah2"}' http://localhost:9999/api/v1/users
+
+curl -H "Content-Type: application/json" -X PUT -d '{"email":"xyz2", "name":"blah222"}' http://localhost:9999/api/v1/users/xyz2
+
+curl -X "DELETE" http://localhost:9999/api/v1/users/xyz2
+
 # Some References
 
 Ruby:
@@ -29,6 +35,8 @@ http://shipit.resultadosdigitais.com.br/blog/40-boas-praticas-de-ruby-parte-1/
 http://shipit.resultadosdigitais.com.br/blog/40-boas-praticas-de-ruby-parte-2/
 http://shipit.resultadosdigitais.com.br/blog/dicas-de-design-orientado-a-objetos-com-ruby-parte-1/
 http://shipit.resultadosdigitais.com.br/blog/dicas-de-design-orientado-a-objetos-com-ruby-parte-2/
+https://github.com/bbatsov/ruby-style-guide
+http://ruby.bastardsbook.com/chapters/collections/
 
 APIs:
 http://brisruby.org/building-apis-with-grape
