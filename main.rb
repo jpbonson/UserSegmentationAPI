@@ -9,6 +9,13 @@ module UserSegmentation
 
         $sample_data = {}
 
+        helpers do
+            params :user do
+                requires :email, type: String, desc: 'Email (used as unique id)'
+                requires :name, type: String, desc: 'Name'
+            end
+        end
+
         resource :users do
             desc 'Return an user by id.'
             get ':id' do
@@ -20,8 +27,7 @@ module UserSegmentation
 
             desc 'Create an user.'
             params do
-                requires :email, type: String, desc: 'Email (used as unique id)'
-                requires :name, type: String, desc: 'Name'
+                use :user
             end
             post do
                 if $sample_data.key?(params[:email])
@@ -31,10 +37,9 @@ module UserSegmentation
                 {}
             end
 
-            desc 'Update an user.'
+            desc 'Update an user by id.'
             params do
-                requires :email, type: String, desc: 'Email (used as unique id)'
-                requires :name, type: String, desc: 'Name'
+                use :user
             end
             put ':id' do
                 if params[:email] != params[:id]
