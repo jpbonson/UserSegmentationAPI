@@ -20,7 +20,9 @@ rackup config.ru -p 9999
 
 # Tests
 
-[TODO]
+```
+rake spec
+```
 
 # Examples
 

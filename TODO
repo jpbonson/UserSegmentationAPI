@@ -2,8 +2,8 @@
 
 - use mongodb instead of a hash
 - allow filtering according to the requisites
-- add acceptance tests
-- add unit tests
+- add more acceptance tests
+- add more unit tests
 - add what is necessary to deploy on Heroku
 - deploy on Heroku
 - improve code organization/readability according to best practices
