@@ -22,7 +22,7 @@ rackup config.ru -p 9999
 
 [TODO]
 
-# Example
+# Examples
 
 ```
 curl -v http://localhost:9999/api/v1/users/annie
