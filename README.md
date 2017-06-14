@@ -33,7 +33,7 @@ curl -v -X "DELETE" http://localhost:9999/api/v1/users/annie@emailcom
 - add what is necessary to deploy on Heroku
 - deploy on Heroku
 - improve code organization/readability according to best practices
-- add better validation for fields
+- add better validation for field 'email'
 - improve README
 - add route for listing users
 - improve logging

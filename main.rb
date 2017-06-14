@@ -12,11 +12,15 @@ module UserSegmentation
         $sample_data = {}
 
         helpers do
+            valid_states = ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA',
+                'MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO',
+                'RR','SC','SP','SE','TO']
+
             params :user do
-                requires :email, type: String, desc: 'Email (used as unique id)'
+                requires :email, type: String, allow_blank: false, regexp: /.+@.+/, desc: 'Email (used as unique id)'
                 requires :name, type: String, desc: 'Name'
-                requires :age, type: Integer, desc: 'Age'
-                requires :state, type: String, desc: 'State'
+                requires :age, type: Integer, values: 0..150, desc: 'Age (0-150)'
+                requires :state, type: String, values: valid_states, desc: 'State (BR)'
                 requires :job, type: String, desc: 'Job'
             end
 
