@@ -62,7 +62,6 @@ module UserSegmentation
                     error!({ error: 'User not found', detail: '' }, 404)
                 end
                 $sample_data.delete(params[:id])
-                {}
             end
         end
     end
