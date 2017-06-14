@@ -14,6 +14,6 @@
 - add authentication?
 - add cool github things (CI, coverage, build, etc)
 - add CRUD for segmentation criterias
-- tihnk about better id
+- after mongodb: think about better/alternative options for id
 - allow partial update of users
 - check if variables are not a security threat
