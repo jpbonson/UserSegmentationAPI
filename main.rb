@@ -7,12 +7,32 @@ module UserSegmentation
         format :json
         prefix :api
 
+        self.logger.level = Logger::INFO
+
         $sample_data = {}
 
         helpers do
             params :user do
                 requires :email, type: String, desc: 'Email (used as unique id)'
                 requires :name, type: String, desc: 'Name'
+                requires :age, type: Integer, desc: 'Age'
+                requires :state, type: String, desc: 'State'
+                requires :job, type: String, desc: 'Job'
+            end
+
+            def update_user_data(params)
+                $sample_data[params[:email]] = {
+                    :email => params[:email],
+                    :name => params[:name],
+                    :age => params[:age],
+                    :state => params[:state],
+                    :job => params[:job]
+                }
+                {}
+            end
+
+            def logger
+                API.logger
             end
         end
 
@@ -33,8 +53,7 @@ module UserSegmentation
                 if $sample_data.key?(params[:email])
                     error!({ error: 'User already exists', detail: '' }, 409)
                 end
-                $sample_data[params[:email]] = { :name => params[:name] }
-                {}
+                update_user_data(params)
             end
 
             desc 'Update an user by id.'
@@ -52,8 +71,7 @@ module UserSegmentation
                 if not $sample_data.key?(params[:email])
                     error!({ error: 'User not found', detail: '' }, 404)
                 end
-                $sample_data[params[:email]] = { :name => params[:name] }
-                {}
+                update_user_data(params)
             end
 
             desc 'Delete an user by id.'

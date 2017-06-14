@@ -16,13 +16,13 @@ rackup config.ru -p 9999
 
 # Example
 
-curl -v http://localhost:9999/api/v1/users
+curl -v http://localhost:9999/api/v1/users/annie@emailcom
 
-curl -H "Content-Type: application/json" -X POST -d '{"email":"xyz2", "name":"blah2"}' http://localhost:9999/api/v1/users
+curl -v -H "Content-Type: application/json" -X POST -d '{"email":"annie@emailcom", "name":"Annie A.", "age": 30, "state": "SC", "job": "dev"}' http://localhost:9999/api/v1/users
 
-curl -H "Content-Type: application/json" -X PUT -d '{"email":"xyz2", "name":"blah222"}' http://localhost:9999/api/v1/users/xyz2
+curl -v -H "Content-Type: application/json" -X PUT -d '{"email":"annie@emailcom", "name":"Annie B.", "age": 30, "state": "SC", "job": "dev"}' http://localhost:9999/api/v1/users/annie@emailcom
 
-curl -X "DELETE" http://localhost:9999/api/v1/users/xyz2
+curl -v -X "DELETE" http://localhost:9999/api/v1/users/annie@emailcom
 
 # TODO
 
@@ -33,11 +33,15 @@ curl -X "DELETE" http://localhost:9999/api/v1/users/xyz2
 - add what is necessary to deploy on Heroku
 - deploy on Heroku
 - improve code organization/readability according to best practices
-- add missing fields
+- add better validation for fields
 - improve README
 - add route for listing users
-- add logging
+- improve logging
 - add authentication?
+- add cool github things (CI, coverage, build, etc)
+- add CRUD for segmentation criterias
+- find out better id
+- allow partial update of users
 
 # Some References
 
