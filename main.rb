@@ -16,7 +16,8 @@ module UserSegmentation
                 'RR','SC','SP','SE','TO']
 
             params :user do
-                requires :email, type: String, allow_blank: false, regexp: /.+@.+/, desc: 'Email (used as unique id)'
+                requires :id, type: String, regexp: /\w+/, desc: 'Unique id (alphanumerical)'
+                requires :email, type: String, allow_blank: false, regexp: /.+@.+/, desc: 'Email'
                 requires :name, type: String, desc: 'Name'
                 requires :age, type: Integer, values: 0..150, desc: 'Age (0-150)'
                 requires :state, type: String, values: valid_states, desc: 'State (BR)'
@@ -24,7 +25,8 @@ module UserSegmentation
             end
 
             def update_user_data(params)
-                $sample_data[params[:email]] = {
+                $sample_data[params[:id]] = {
+                    :id => params[:id],
                     :email => params[:email],
                     :name => params[:name],
                     :age => params[:age],
@@ -53,7 +55,7 @@ module UserSegmentation
                 use :user
             end
             post do
-                if $sample_data.key?(params[:email])
+                if $sample_data.key?(params[:id])
                     error!({ error: 'User already exists', detail: '' }, 409)
                 end
                 update_user_data(params)
@@ -63,15 +65,15 @@ module UserSegmentation
             params do
                 use :user
             end
-            put ':id' do
-                if params[:email] != params[:id]
+            put ':user_id' do
+                if params[:user_id] != params[:id]
                     error!(
                     {
-                        error: 'User id in request is different from email in the object',
-                        detail: 'Id and email must be equal since email is used as the unique identifier'
+                        error: 'User id in request is different from id in the object',
+                        detail: ''
                     }, 400)
                 end
-                if not $sample_data.key?(params[:email])
+                if not $sample_data.key?(params[:id])
                     error!({ error: 'User not found', detail: '' }, 404)
                 end
                 update_user_data(params)

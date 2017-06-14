@@ -8,7 +8,6 @@
 - deploy on Heroku
 - improve code organization/readability according to best practices
 - add better validation for field 'email'
-- improve README
 - add route for listing users
 - improve logging
 - add authentication?
