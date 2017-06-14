@@ -32,10 +32,12 @@ curl -X "DELETE" http://localhost:9999/api/v1/users/xyz2
 - add unit tests
 - add what is necessary to deploy on Heroku
 - deploy on Heroku
-- improve code organization
+- improve code organization/readability according to best practices
 - add missing fields
 - improve README
 - add route for listing users
+- add logging
+- add authentication?
 
 # Some References
 
