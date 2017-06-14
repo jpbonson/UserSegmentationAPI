@@ -2,7 +2,7 @@
 
 API that allows the segmentation of users according to custom filters.
 
-Ruby. Sinatra. Grape. MongoDB.
+Ruby. Grape. MongoDB.
 
 # How to Install
 
@@ -42,6 +42,7 @@ curl -v -X "DELETE" http://localhost:9999/api/v1/users/annie@emailcom
 - add CRUD for segmentation criterias
 - find out better id
 - allow partial update of users
+- check if variables are not a security threat
 
 # Some References
 
@@ -57,6 +58,7 @@ http://shipit.resultadosdigitais.com.br/blog/dicas-de-design-orientado-a-objetos
 https://github.com/bbatsov/ruby-style-guide
 http://ruby.bastardsbook.com/chapters/collections/
 https://stackoverflow.com/questions/3422223/vs-in-ruby
+http://blog.scoutapp.com/articles/2017/02/20/rails-api-vs-sinatra-vs-grape-which-ruby-microframework-is-right-for-you
 
 APIs:
 http://brisruby.org/building-apis-with-grape
@@ -77,12 +79,15 @@ Heroku:
 https://www.heroku.com/
 https://devcenter.heroku.com/articles/rack
 https://devcenter.heroku.com/articles/getting-started-with-ruby#introduction
+http://www.hamiltonchapman.com/blog/2014/3/22/setting-up-mongodb-for-heroku-in-a-sinatra-app
 
 Mongodb:
 https://docs.mongodb.com/manual/reference/method/db.collection.find/
 https://github.com/mongodb/mongo-ruby-driver
 https://stackoverflow.com/questions/30948024/filtering-elements-in-mongodb-collection-with-ruby
 http://api.mongodb.com/ruby/current/Mongo/Collection/View.html
+https://docs.mongodb.com/ruby-driver/master/quick-start/
+https://github.com/dblock/grape-with-mongoid
 
 Tests:
 http://blog.brianguthrie.com/2011/03/29/when-to-use-rspec-when-to-use-cucumber/
