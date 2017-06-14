@@ -24,6 +24,19 @@ curl -H "Content-Type: application/json" -X PUT -d '{"email":"xyz2", "name":"bla
 
 curl -X "DELETE" http://localhost:9999/api/v1/users/xyz2
 
+# TODO
+
+- use mongodb instead of a hash
+- allow filtering according to the requisites
+- add acceptance tests
+- add unit tests
+- add what is necessary to deploy on Heroku
+- deploy on Heroku
+- improve code organization
+- add missing fields
+- improve README
+- add route for listing users
+
 # Some References
 
 Ruby:
@@ -57,6 +70,7 @@ https://github.com/katgironpe/sinatra-mongodb-grape
 Heroku:
 https://www.heroku.com/
 https://devcenter.heroku.com/articles/rack
+https://devcenter.heroku.com/articles/getting-started-with-ruby#introduction
 
 Mongodb:
 https://docs.mongodb.com/manual/reference/method/db.collection.find/
