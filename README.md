@@ -37,6 +37,7 @@ http://shipit.resultadosdigitais.com.br/blog/dicas-de-design-orientado-a-objetos
 http://shipit.resultadosdigitais.com.br/blog/dicas-de-design-orientado-a-objetos-com-ruby-parte-2/
 https://github.com/bbatsov/ruby-style-guide
 http://ruby.bastardsbook.com/chapters/collections/
+https://stackoverflow.com/questions/3422223/vs-in-ruby
 
 APIs:
 http://brisruby.org/building-apis-with-grape
