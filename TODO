@@ -1,0 +1,19 @@
+# TODO
+
+- use mongodb instead of a hash
+- allow filtering according to the requisites
+- add acceptance tests
+- add unit tests
+- add what is necessary to deploy on Heroku
+- deploy on Heroku
+- improve code organization/readability according to best practices
+- add better validation for field 'email'
+- improve README
+- add route for listing users
+- improve logging
+- add authentication?
+- add cool github things (CI, coverage, build, etc)
+- add CRUD for segmentation criterias
+- tihnk about better id
+- allow partial update of users
+- check if variables are not a security threat

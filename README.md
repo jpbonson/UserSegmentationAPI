@@ -4,15 +4,19 @@ API that allows the segmentation of users according to custom filters.
 
 Ruby. Grape. MongoDB.
 
-# How to Install
+[WORK IN PROGRESS (see TODO and REFERENCES in the main directory)]
 
-To install gem dependencies:
+# Installation
+
 bundle install
 
-# To Execute
+# Execution
 
-Run:
 rackup config.ru -p 9999
+
+# Tests
+
+[TODO]
 
 # Example
 
@@ -23,87 +27,3 @@ curl -v -H "Content-Type: application/json" -X POST -d '{"email":"annie@emailcom
 curl -v -H "Content-Type: application/json" -X PUT -d '{"email":"annie@emailcom", "name":"Annie B.", "age": 30, "state": "SC", "job": "dev"}' http://localhost:9999/api/v1/users/annie@emailcom
 
 curl -v -X "DELETE" http://localhost:9999/api/v1/users/annie@emailcom
-
-# TODO
-
-- use mongodb instead of a hash
-- allow filtering according to the requisites
-- add acceptance tests
-- add unit tests
-- add what is necessary to deploy on Heroku
-- deploy on Heroku
-- improve code organization/readability according to best practices
-- add better validation for field 'email'
-- improve README
-- add route for listing users
-- improve logging
-- add authentication?
-- add cool github things (CI, coverage, build, etc)
-- add CRUD for segmentation criterias
-- find out better id
-- allow partial update of users
-- check if variables are not a security threat
-
-# Some References
-
-Ruby:
-http://www.cheat-sheets.org/saved-copy/RubyCheat.pdf
-http://www.rubyinside.com/ruby-cheat-sheet-734.html
-http://shipit.resultadosdigitais.com.br/blog/composicao-e-heranca-no-ruby/
-http://shipit.resultadosdigitais.com.br/blog/dicas-de-design-orientado-a-objetos-com-ruby-parte-3/
-http://shipit.resultadosdigitais.com.br/blog/40-boas-praticas-de-ruby-parte-1/
-http://shipit.resultadosdigitais.com.br/blog/40-boas-praticas-de-ruby-parte-2/
-http://shipit.resultadosdigitais.com.br/blog/dicas-de-design-orientado-a-objetos-com-ruby-parte-1/
-http://shipit.resultadosdigitais.com.br/blog/dicas-de-design-orientado-a-objetos-com-ruby-parte-2/
-https://github.com/bbatsov/ruby-style-guide
-http://ruby.bastardsbook.com/chapters/collections/
-https://stackoverflow.com/questions/3422223/vs-in-ruby
-http://blog.scoutapp.com/articles/2017/02/20/rails-api-vs-sinatra-vs-grape-which-ruby-microframework-is-right-for-you
-
-APIs:
-http://brisruby.org/building-apis-with-grape
-https://phraseapp.com/blog/posts/best-practice-10-design-tips-for-apis/
-
-Gems or gem-related:
-https://rvm.io/
-http://rack.github.io/
-http://bundler.io/
-http://www.sinatrarb.com/
-http://www.ruby-grape.org/examples/
-http://www.rubydoc.info/
-
-https://github.com/ruby-grape/grape
-https://github.com/katgironpe/sinatra-mongodb-grape
-
-Heroku:
-https://www.heroku.com/
-https://devcenter.heroku.com/articles/rack
-https://devcenter.heroku.com/articles/getting-started-with-ruby#introduction
-http://www.hamiltonchapman.com/blog/2014/3/22/setting-up-mongodb-for-heroku-in-a-sinatra-app
-
-Mongodb:
-https://docs.mongodb.com/manual/reference/method/db.collection.find/
-https://github.com/mongodb/mongo-ruby-driver
-https://stackoverflow.com/questions/30948024/filtering-elements-in-mongodb-collection-with-ruby
-http://api.mongodb.com/ruby/current/Mongo/Collection/View.html
-https://docs.mongodb.com/ruby-driver/master/quick-start/
-https://github.com/dblock/grape-with-mongoid
-
-Tests:
-http://blog.brianguthrie.com/2011/03/29/when-to-use-rspec-when-to-use-cucumber/
-https://stackoverflow.com/questions/11762245/whats-the-difference-between-rspec-and-cucumber
-https://github.com/teamcapybara/capybara
-http://shipit.resultadosdigitais.com.br/blog/estruturando-seu-projeto-com-bdd-e-cucumber/
-http://shipit.resultadosdigitais.com.br/blog/o-processo-de-garantia-de-qualidade-em-um-ambiente-agil/
-http://shipit.resultadosdigitais.com.br/blog/rspec-performance-tips/
-https://stackoverflow.com/questions/1479361/what-is-the-community-preferred-ruby-unit-testing-framework
-
-Extras:
-http://shipit.resultadosdigitais.com.br/blog/materiais-abertos-recomendados-onboarding-desenvolvedores/
-http://shipit.resultadosdigitais.com.br/blog/ganhando-produtividade-com-clean-code/
-https://stackoverflow.com/questions/5758276/how-do-i-install-ruby-gems-when-using-rvm
-https://stackoverflow.com/questions/3009477/what-is-rubys-double-colon
-http://shipit.resultadosdigitais.com.br/blog/o-processo-de-garantia-de-qualidade-em-um-ambiente-agil/
-http://shipit.resultadosdigitais.com.br/blog/como-fazer-uma-boa-revisao-de-codigo/
-http://shipit.resultadosdigitais.com.br/blog/evitando-problemas-com-elasticsearch-parte-1-analise/
-http://shipit.resultadosdigitais.com.br/blog/alta-disponibilidade-e-tolerancia-a-falhas-com-mongodb/
