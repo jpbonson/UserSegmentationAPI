@@ -14,10 +14,11 @@ module UserSegmentation
             params do
                 requires :email, type: String, desc: 'Email (used as unique id)'
             end
-            route_param :email do
-                get do
-                    $sample_data[params[:email]]
+            get ':email' do
+                if not $sample_data.key?(params[:email])
+                    error!({ error: 'User not found', detail: '' }, 404)
                 end
+                $sample_data[params[:email]]
             end
 
             desc 'Create an user.'
@@ -26,6 +27,9 @@ module UserSegmentation
                 requires :name, type: String, desc: 'Name'
             end
             post do
+                if $sample_data.key?(params[:email])
+                    error!({ error: 'User already exists', detail: '' }, 409)
+                end
                 $sample_data[params[:email]] = params[:name]
             end
 
@@ -35,6 +39,9 @@ module UserSegmentation
                 requires :name, type: String, desc: 'Name'
             end
             put ':email' do
+                if not $sample_data.key?(params[:email])
+                    error!({ error: 'User not found', detail: '' }, 404)
+                end
                 $sample_data[params[:email]] = params[:name]
             end
 
@@ -43,6 +50,9 @@ module UserSegmentation
                 requires :email, type: String, desc: 'Email (used as unique id)'
             end
             delete ':email' do
+                if not $sample_data.key?(params[:email])
+                    error!({ error: 'User not found', detail: '' }, 404)
+                end
                 $sample_data.delete(params[:email])
             end
         end

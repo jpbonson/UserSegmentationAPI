@@ -16,7 +16,7 @@ rackup config.ru -p 9999
 
 # Example
 
-curl http://localhost:9999/api/v1/users
+curl -v http://localhost:9999/api/v1/users
 
 curl -H "Content-Type: application/json" -X POST -d '{"email":"xyz2", "name":"blah2"}' http://localhost:9999/api/v1/users
 
