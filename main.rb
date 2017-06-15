@@ -102,7 +102,7 @@ module UserSegmentation
                 end
 
                 begin
-                    result = $collection.insert_one(update_user_data(params))
+                    result = $collection.insert_one(params)
                     if result.n == 1
                         {}
                     else
@@ -125,7 +125,8 @@ module UserSegmentation
                         detail: ''
                     }, 400)
                 end
-                result = $collection.find_one_and_update( { :_id => params[:_id] }, "$set" => update_user_data(params) )
+                params.delete(:user_id)
+                result = $collection.find_one_and_update( { :_id => params[:_id] }, "$set" => params )
                 if not result
                     error!({ error: 'User not found', detail: '' }, 404)
                 end
