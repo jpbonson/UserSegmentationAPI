@@ -11,7 +11,7 @@ describe UserSegmentation::API do
     def create_user
         user = {
             :id => 'annie',
-            :email => 'annie@emailcom',
+            :email => 'annie@email.com',
             :name => 'Annie A.',
             :age => 30,
             :state => 'SC',
@@ -39,6 +39,80 @@ describe UserSegmentation::API do
             post '/api/v1/users', user.to_json, 'CONTENT_TYPE' => 'application/json'
             expect(last_response.status).to eq(409)
             expect(last_response.body).to eq error_msg.to_json
+        end
+
+        context 'params validation' do
+            context 'id' do
+                expected_values = ['a b', '', nil, 'a!', '!a']
+                expected_values.each do |val|
+                    it "fail for invalid id #{val}" do
+                        user = create_user
+                        user[:id] = val
+                        post '/api/v1/users', user.to_json, 'CONTENT_TYPE' => 'application/json'
+                        expect(last_response.status).to eq(400)
+                    end
+                end
+            end
+
+            context 'email' do
+                expected_values = ['a', 123, '', nil]
+                expected_values.each do |val|
+                    it "fail for invalid email #{val}" do
+                        user = create_user
+                        user[:email] = val
+                        post '/api/v1/users', user.to_json, 'CONTENT_TYPE' => 'application/json'
+                        expect(last_response.status).to eq(400)
+                    end
+                end
+            end
+
+            context 'name' do
+                expected_values = ['', nil]
+                expected_values.each do |val|
+                    it "fail for invalid name #{val}" do
+                        user = create_user
+                        user[:name] = val
+                        post '/api/v1/users', user.to_json, 'CONTENT_TYPE' => 'application/json'
+                        expect(last_response.status).to eq(400)
+                    end
+                end
+            end
+
+            context 'age' do
+                expected_values = ['', nil, 'old', -1, 151]
+                expected_values.each do |val|
+                    it "fail for invalid age #{val}" do
+                        user = create_user
+                        user[:age] = val
+                        post '/api/v1/users', user.to_json, 'CONTENT_TYPE' => 'application/json'
+                        expect(last_response.status).to eq(400)
+                    end
+                end
+            end
+
+            context 'state' do
+                expected_values = ['', nil, 'AB', 123]
+                expected_values.each do |val|
+                    it "fail for invalid state #{val}" do
+                        user = create_user
+                        user[:state] = val
+                        post '/api/v1/users', user.to_json, 'CONTENT_TYPE' => 'application/json'
+                        expect(last_response.status).to eq(400)
+                    end
+                end
+            end
+
+            context 'job' do
+                expected_values = ['', nil]
+                expected_values.each do |val|
+                    it "fail for invalid job #{val}" do
+                        user = create_user
+                        user[:job] = val
+                        post '/api/v1/users', user.to_json, 'CONTENT_TYPE' => 'application/json'
+                        expect(last_response.status).to eq(400)
+                    end
+                end
+            end
         end
     end
 

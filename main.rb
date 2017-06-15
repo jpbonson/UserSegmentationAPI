@@ -16,12 +16,12 @@ module UserSegmentation
                 'RR','SC','SP','SE','TO']
 
             params :user do
-                requires :id, type: String, regexp: /\w+/, desc: 'Unique id (alphanumerical)'
-                requires :email, type: String, allow_blank: false, regexp: /.+@.+/, desc: 'Email'
-                requires :name, type: String, desc: 'Name'
+                requires :id, type: String, allow_blank: false, regexp: /^[a-zA-Z0-9_]+$/, desc: 'Unique id (alphanumerical)'
+                requires :email, type: String, allow_blank: false, regexp: /^.+@.+$/, desc: 'Email'
+                requires :name, type: String, allow_blank: false, desc: 'Name'
                 requires :age, type: Integer, values: 0..150, desc: 'Age (0-150)'
                 requires :state, type: String, values: valid_states, desc: 'State (BR)'
-                requires :job, type: String, desc: 'Job'
+                requires :job, type: String, allow_blank: false, desc: 'Job'
             end
 
             def update_user_data(params)
