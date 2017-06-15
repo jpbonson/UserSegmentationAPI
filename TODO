@@ -2,8 +2,6 @@
 
 - use mongodb instead of a hash
 - allow filtering according to the requisites
-- add what is necessary to deploy on Heroku
-- deploy on Heroku
 - improve code organization/readability according to best practices
 - improve logging
 - add CRUD for segmentation criterias

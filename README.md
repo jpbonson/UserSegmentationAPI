@@ -29,21 +29,21 @@ bundle exec rake
 # Examples
 
 ```
-curl -v http://localhost:9999/api/v1/users/annie
+curl -v https://mighty-scrubland-86456.herokuapp.com/api/v1/users/annie
 ```
 
 ```
-curl -v -H "Content-Type: application/json" -X POST -d '{"id": "annie", "email":"annie@email.com", "name":"Annie A.", "age": 30, "state": "SC", "job": "dev"}' http://localhost:9999/api/v1/users
+curl -v -H "Content-Type: application/json" -X POST -d '{"id": "annie", "email":"annie@email.com", "name":"Annie A.", "age": 30, "state": "SC", "job": "dev"}' https://mighty-scrubland-86456.herokuapp.com/api/v1/users
 ```
 
 ```
-curl -v -H "Content-Type: application/json" -X PUT -d '{"id": "annie", "email":"annie@email.com", "name":"Annie B.", "age": 30, "state": "SC", "job": "dev"}' http://localhost:9999/api/v1/users/annie
+curl -v -H "Content-Type: application/json" -X PUT -d '{"id": "annie", "email":"annie@email.com", "name":"Annie B.", "age": 30, "state": "SC", "job": "dev"}' https://mighty-scrubland-86456.herokuapp.com/api/v1/users/annie
 ```
 
 ```
-curl -v -X "DELETE" http://localhost:9999/api/v1/users/annie
+curl -v -X "DELETE" https://mighty-scrubland-86456.herokuapp.com/api/v1/users/annie
 ```
 
 ```
-curl -v http://localhost:9999/api/v1/users
+curl -v https://mighty-scrubland-86456.herokuapp.com/api/v1/users
 ```
