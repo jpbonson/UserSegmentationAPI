@@ -2,17 +2,13 @@
 
 - use mongodb instead of a hash
 - allow filtering according to the requisites
-- add more acceptance tests
-- add more unit tests
 - add what is necessary to deploy on Heroku
 - deploy on Heroku
 - improve code organization/readability according to best practices
-- add better validation for field 'email'
 - add route for listing users
 - improve logging
-- add authentication?
 - add cool github things (CI, coverage, build, etc)
 - add CRUD for segmentation criterias
 - after mongodb: think about better/alternative options for id
-- allow partial update of users
-- check if variables are not a security threat
+- allow partial update of users?
+- check if variables are not a security threat?
