@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/jpbonson/UserSegmentationAPI.svg?branch=master)](https://travis-ci.org/jpbonson/)
+[![Build Status](https://travis-ci.org/jpbonson/UserSegmentationAPI.svg?branch=master)](https://travis-ci.org/jpbonson/) [![Coverage Status](https://coveralls.io/repos/github/jpbonson/UserSegmentationAPI/badge.svg?branch=master)](https://coveralls.io/github/jpbonson/UserSegmentationAPI?branch=master)
 
 # User Segmentation API
 
