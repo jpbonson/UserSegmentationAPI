@@ -48,30 +48,6 @@ module UserSegmentation
                 optional :job, type: String, allow_blank: false, desc: 'Job'
             end
 
-            def update_user_data(params)
-                user = {}
-
-                user[:_id] = params[:_id]
-
-                if params[:email]
-                    user[:email] = params[:email]
-                end
-                if params[:name]
-                    user[:name] = params[:name]
-                end
-                if params[:age]
-                    user[:age] = params[:age]
-                end
-                if params[:state]
-                    user[:state] = params[:state]
-                end
-                if params[:job]
-                    user[:job] = params[:job]
-                end
-
-                user
-            end
-
             def logger
                 API.logger
             end
