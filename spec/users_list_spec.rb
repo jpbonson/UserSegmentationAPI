@@ -111,6 +111,42 @@ describe UserSegmentation::API do
             expect(last_response.status).to eq(200)
         end
 
+        it 'should get a list of users with less or equal 30 years' do
+            get '/api/v1/users?age=30&age_op=lte'
+            parsed_body = JSON.parse(last_response.body)
+            expect(parsed_body.length).to be(2)
+            expect(parsed_body[0]).to eq user1.stringify_keys()
+            expect(parsed_body[1]).to eq user4.stringify_keys()
+            expect(last_response.status).to eq(200)
+        end
+
+        it 'should get a list of users with more or equal 40 years' do
+            get '/api/v1/users?age=40&age_op=gte'
+            parsed_body = JSON.parse(last_response.body)
+            expect(parsed_body.length).to be(2)
+            expect(parsed_body[0]).to eq user2.stringify_keys()
+            expect(parsed_body[1]).to eq user3.stringify_keys()
+            expect(last_response.status).to eq(200)
+        end
+
+        it 'should get a list of users with less than 35 years or live in SP' do
+            get '/api/v1/users?age=35&age_op=lt&state=SP&logic_op=or'
+            parsed_body = JSON.parse(last_response.body)
+            expect(parsed_body.length).to be(3)
+            expect(parsed_body[0]).to eq user1.stringify_keys()
+            expect(parsed_body[1]).to eq user2.stringify_keys()
+            expect(parsed_body[2]).to eq user4.stringify_keys()
+            expect(last_response.status).to eq(200)
+        end
+
+        it 'should get a list of users with more than 30 years and live in SP' do
+            get '/api/v1/users?age=30&age_op=gt&state=SP'
+            parsed_body = JSON.parse(last_response.body)
+            expect(parsed_body.length).to be(1)
+            expect(parsed_body[0]).to eq user2.stringify_keys()
+            expect(last_response.status).to eq(200)
+        end
+
         it 'should get an empty list due to no user meeting the criterias' do
             success_msg = []
             get '/api/v1/users?age=31'
@@ -119,7 +155,7 @@ describe UserSegmentation::API do
         end
 
         it 'fail for invalid query parameter' do
-            valid_query_params = ['logic_op', 'email', 'name', 'age', 'state', 'job']
+            valid_query_params = ['logic_op', 'age_op', 'email', 'name', 'age', 'state', 'job']
             error_msg = {
                 :error => 'Invalid query',
                 :detail => "The only valid query params are #{valid_query_params}"
@@ -138,6 +174,18 @@ describe UserSegmentation::API do
             }
 
             get '/api/v1/users?state=SC&age=30&logic_op=blah'
+            expect(last_response.body).to eq error_msg.to_json
+            expect(last_response.status).to eq(400)
+        end
+
+        it 'fail for invalid numeric operator' do
+            valid_logic_ops = ['lte', 'lt', 'gte', 'gt']
+            error_msg = {
+                :error => 'Invalid query',
+                :detail => "The only valid numeric operators are #{valid_logic_ops}"
+            }
+
+            get '/api/v1/users?state=SC&age=30&age_op=blah'
             expect(last_response.body).to eq error_msg.to_json
             expect(last_response.status).to eq(400)
         end

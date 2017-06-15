@@ -72,12 +72,30 @@ module UserSegmentation
                 use :user_optional
             end
             get do
-                valid_query_params = ['logic_op', 'email', 'name', 'age', 'state', 'job']
+                valid_query_params = ['logic_op', 'age_op', 'email', 'name', 'age', 'state', 'job']
                 if not params.keys.all? {|key| valid_query_params.include?(key) }
                     error!({
                         error: 'Invalid query',
                         detail: "The only valid query params are #{valid_query_params}"
                     }, 400)
+                end
+
+                if params.key?('age_op') and not params.key?('age')
+                    params.delete('age_op')
+                end
+
+                valid_numeric_ops = ['lte', 'lt', 'gte', 'gt']
+                if params.key?('age_op')
+                    if not valid_numeric_ops.include?(params['age_op'])
+                        error!({
+                            error: 'Invalid query',
+                            detail: "The only valid numeric operators are #{valid_numeric_ops}"
+                        }, 400)
+                    end
+
+                    params['age'] = { "$#{params['age_op']}" => params['age'] }
+
+                    params.delete('age_op')
                 end
 
                 valid_logic_ops = ['and', 'or']

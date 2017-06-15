@@ -2,8 +2,8 @@
 
 - allow filtering according to the missing requisites
     - string: contains, start_with, end_with
-    - number: >, <, >=, <=
-- improve 'main.rb' code organization/readability according to best practices for ruby
+- refactor 'main.rb' code organization/readability according to best practices for ruby + separate into more files
+- separate 'users_list_spec.rb' into more files
 - use this: https://github.com/bbatsov/rubocop
 - check if mongodb in mongolab is working for heroku
 - use factory to generate/test objects
