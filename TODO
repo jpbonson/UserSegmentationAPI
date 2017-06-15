@@ -6,7 +6,6 @@
 - deploy on Heroku
 - improve code organization/readability according to best practices
 - improve logging
-- add cool github things (coverage, etc)
 - add CRUD for segmentation criterias
 - after mongodb: think about better/alternative options for id
 - allow partial update of users?
