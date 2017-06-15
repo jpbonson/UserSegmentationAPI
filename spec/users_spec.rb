@@ -55,7 +55,7 @@ describe UserSegmentation::API do
             end
 
             context 'email' do
-                expected_values = ['a', 123, '', nil]
+                expected_values = ['a', 123, '', nil, '@email.com', 'blahemail.com']
                 expected_values.each do |val|
                     it "fail for invalid email #{val}" do
                         user = create_user
