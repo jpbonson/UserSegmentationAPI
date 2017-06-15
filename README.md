@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jpbonson/UserSegmentationAPI.svg?branch=master)](https://travis-ci.org/jpbonson/)
+
 # User Segmentation API
 
 API that allows the segmentation of users according to custom filters.
