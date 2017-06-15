@@ -9,7 +9,7 @@ describe UserSegmentation::API do
     end
 
     def create_user
-        user = {
+        {
             :id => 'annie',
             :email => 'annie@email.com',
             :name => 'Annie A.',
@@ -194,6 +194,29 @@ describe UserSegmentation::API do
             delete '/api/v1/users/WHATEVER'
             expect(last_response.status).to eq(404)
             expect(last_response.body).to eq error_msg.to_json
+        end
+    end
+
+    context 'GET /api/v1/users' do
+        it 'should get an empty list' do
+            success_msg = []
+
+            get '/api/v1/users'
+            expect(last_response.status).to eq(200)
+            expect(last_response.body).to eq success_msg.to_json
+        end
+
+        it 'should get a list of users' do
+            user1 = create_user
+            user2 = create_user
+            user2[:id] = 'blah'
+
+            post '/api/v1/users', user1.to_json, 'CONTENT_TYPE' => 'application/json'
+            post '/api/v1/users', user2.to_json, 'CONTENT_TYPE' => 'application/json'
+
+            get '/api/v1/users'
+            expect(last_response.status).to eq(200)
+            expect(last_response.body).to eq [user1, user2].to_json
         end
     end
 end

@@ -52,6 +52,11 @@ module UserSegmentation
                 $sample_data[params[:id]]
             end
 
+            desc 'Return a list of users.'
+            get do
+                $sample_data.values
+            end
+
             desc 'Create an user.'
             params do
                 use :user

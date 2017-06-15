@@ -41,3 +41,7 @@ curl -v -H "Content-Type: application/json" -X PUT -d '{"id": "annie", "email":"
 ```
 curl -v -X "DELETE" http://localhost:9999/api/v1/users/annie
 ```
+
+```
+curl -v http://localhost:9999/api/v1/users
+```
