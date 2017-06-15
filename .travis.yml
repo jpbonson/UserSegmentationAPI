@@ -16,6 +16,7 @@ install:
   - bundle install
 
 before_script:
+  - sleep 15
   - mongo segmentation-api-test --eval 'db.addUser("travis", "test");'
 
 script:
