@@ -7,3 +7,4 @@ gem "thin"
 gem 'rack-test', require: "rack/test"
 gem 'rspec'
 gem 'rake'
+gem 'coveralls', require: false
