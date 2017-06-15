@@ -3,3 +3,4 @@
 - allow filtering according to the requisites
 - improve code organization/readability according to best practices
 - use queries in url for segmentation criterias
+- check if everything ok on heroku

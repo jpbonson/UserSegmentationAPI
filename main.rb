@@ -79,7 +79,7 @@ module UserSegmentation
 
                 begin
                     result = @@collection.insert_one(params)
-                    if result.n == 1
+                    if result.ok?
                         {}
                     else
                         msg_detail = "Could not create user, n: #{result.n}, ok: #{result.ok?}"
