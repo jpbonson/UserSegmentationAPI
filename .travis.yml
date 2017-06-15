@@ -1,8 +1,18 @@
 language: ruby
+
+sudo: false
+
+branches:
+  only:
+  - master
+
 rvm:
   - 2.4.0
+
 install:
   - bundle install
+
 script:
   - bundle exec rake
+
 cache: bundler
