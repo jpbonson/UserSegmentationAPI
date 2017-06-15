@@ -20,8 +20,8 @@ module UserSegmentation
             settings[:database] = 'segmentation-api-prod'
         end
 
-        $client = Mongo::Client.new("mongodb://#{settings[:mongodb_host]}:#{settings[:port]}/#{settings[:database]}")
-        $collection = $client[:users]
+        @@client = Mongo::Client.new("mongodb://#{settings[:mongodb_host]}:#{settings[:port]}/#{settings[:database]}")
+        @@collection = @@client[:users]
 
         helpers do
             VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -80,7 +80,7 @@ module UserSegmentation
         resource :users do
             desc 'Return an user by id.'
             get ':_id' do
-                result = $collection.find({ :_id => params[:_id] }, { :limit => 1 }).first
+                result = @@collection.find({ :_id => params[:_id] }, { :limit => 1 }).first
                 if not result
                     error!({ error: 'User not found', detail: '' }, 404)
                 end
@@ -89,7 +89,7 @@ module UserSegmentation
 
             desc 'Return a list of users.'
             get do
-                $collection.find().to_a
+                @@collection.find().to_a
             end
 
             desc 'Create an user.'
@@ -97,12 +97,12 @@ module UserSegmentation
                 use :user_post
             end
             post do
-                if $collection.find({ :_id => params[:_id] }, { :limit => 1 }).first
+                if @@collection.find({ :_id => params[:_id] }, { :limit => 1 }).first
                     error!({ error: 'User already exists', detail: '' }, 409)
                 end
 
                 begin
-                    result = $collection.insert_one(params)
+                    result = @@collection.insert_one(params)
                     if result.n == 1
                         {}
                     else
@@ -126,7 +126,7 @@ module UserSegmentation
                     }, 400)
                 end
                 params.delete(:user_id)
-                result = $collection.find_one_and_update( { :_id => params[:_id] }, "$set" => params )
+                result = @@collection.find_one_and_update( { :_id => params[:_id] }, "$set" => params )
                 if not result
                     error!({ error: 'User not found', detail: '' }, 404)
                 end
@@ -135,7 +135,7 @@ module UserSegmentation
 
             desc 'Delete an user by id.'
             delete ':_id' do
-                result = $collection.find_one_and_delete( { :_id => params[:_id] } )
+                result = @@collection.find_one_and_delete( { :_id => params[:_id] } )
                 if not result
                     error!({ error: 'User not found', detail: '' }, 404)
                 end

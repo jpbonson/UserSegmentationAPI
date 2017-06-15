@@ -22,7 +22,7 @@ describe UserSegmentation::API do
     end
 
     after(:all) do
-        $client.database.drop()
+        UserSegmentation::API.class_variable_get(:@@client).database.drop()
     end
 
     context 'POST /api/v1/users' do
