@@ -101,8 +101,10 @@ module UserSegmentation
                         detail: ''
                     }, 400)
                 end
+                user_id = params[:user_id]
                 params.delete(:user_id)
-                result = @@collection.find_one_and_update( { :_id => params[:_id] }, "$set" => params )
+                params.delete(:_id)
+                result = @@collection.find_one_and_update( { :_id => user_id }, '$set' => params )
                 if not result
                     error!({ error: 'User not found', detail: '' }, 404)
                 end

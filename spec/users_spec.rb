@@ -43,8 +43,8 @@ describe UserSegmentation::API do
             }
 
             post '/api/v1/users', user.to_json, 'CONTENT_TYPE' => 'application/json'
-            expect(last_response.status).to eq(409)
             expect(last_response.body).to eq error_msg.to_json
+            expect(last_response.status).to eq(409)
         end
 
         context 'params validation' do
@@ -129,8 +129,8 @@ describe UserSegmentation::API do
             success_msg = {}
 
             put "/api/v1/users/#{user[:_id]}", user.to_json, 'CONTENT_TYPE' => 'application/json'
-            expect(last_response.status).to eq(200)
             expect(last_response.body).to eq success_msg.to_json
+            expect(last_response.status).to eq(200)
         end
 
         it 'should partially update user' do
@@ -154,8 +154,8 @@ describe UserSegmentation::API do
             }
 
             put "/api/v1/users/WHATEVER", user.to_json, 'CONTENT_TYPE' => 'application/json'
-            expect(last_response.status).to eq(404)
             expect(last_response.body).to eq error_msg.to_json
+            expect(last_response.status).to eq(404)
         end
 
         it 'fail for incompatible ids in request and object' do
@@ -166,8 +166,8 @@ describe UserSegmentation::API do
             }
 
             put "/api/v1/users/WHATEVER", user.to_json, 'CONTENT_TYPE' => 'application/json'
-            expect(last_response.status).to eq(400)
             expect(last_response.body).to eq error_msg.to_json
+            expect(last_response.status).to eq(400)
         end
     end
 
@@ -177,8 +177,8 @@ describe UserSegmentation::API do
             user[:name] = 'Annie C.'
 
             get "/api/v1/users/#{user[:_id]}"
-            expect(last_response.status).to eq(200)
             expect(last_response.body).to eq user.to_json
+            expect(last_response.status).to eq(200)
         end
 
         it 'fail for user that does not exist' do
@@ -188,8 +188,8 @@ describe UserSegmentation::API do
             }
 
             get '/api/v1/users/WHATEVER'
-            expect(last_response.status).to eq(404)
             expect(last_response.body).to eq error_msg.to_json
+            expect(last_response.status).to eq(404)
         end
     end
 
@@ -199,8 +199,8 @@ describe UserSegmentation::API do
             user[:name] = 'Annie C.'
 
             delete "/api/v1/users/#{user[:_id]}"
-            expect(last_response.status).to eq(200)
             expect(last_response.body).to eq user.to_json
+            expect(last_response.status).to eq(200)
         end
 
         it 'fail for user that does not exist' do
@@ -210,8 +210,8 @@ describe UserSegmentation::API do
             }
 
             delete '/api/v1/users/WHATEVER'
-            expect(last_response.status).to eq(404)
             expect(last_response.body).to eq error_msg.to_json
+            expect(last_response.status).to eq(404)
         end
     end
 
@@ -220,8 +220,8 @@ describe UserSegmentation::API do
             success_msg = []
 
             get '/api/v1/users'
-            expect(last_response.status).to eq(200)
             expect(last_response.body).to eq success_msg.to_json
+            expect(last_response.status).to eq(200)
         end
 
         it 'should get a list of users' do
@@ -233,8 +233,8 @@ describe UserSegmentation::API do
             post '/api/v1/users', user2.to_json, 'CONTENT_TYPE' => 'application/json'
 
             get '/api/v1/users'
-            expect(last_response.status).to eq(200)
             expect(last_response.body).to eq [user1, user2].to_json
+            expect(last_response.status).to eq(200)
         end
     end
 end
