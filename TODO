@@ -6,5 +6,4 @@
 - improve logging
 - add CRUD for segmentation criterias
 - after mongodb: think about better/alternative options for id
-- allow partial update of users?
 - check if variables are not a security threat?

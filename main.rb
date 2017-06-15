@@ -17,7 +17,7 @@ module UserSegmentation
                 'MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO',
                 'RR','SC','SP','SE','TO']
 
-            params :user do
+            params :user_post do
                 requires :id, type: String, allow_blank: false, regexp: /\A\w+\z/, desc: 'Unique id (alphanumerical)'
                 requires :email, type: String, allow_blank: false, regexp: VALID_EMAIL_REGEX, desc: 'Email'
                 requires :name, type: String, allow_blank: false, desc: 'Name'
@@ -26,15 +26,38 @@ module UserSegmentation
                 requires :job, type: String, allow_blank: false, desc: 'Job'
             end
 
+            params :user_put do
+                requires :id, type: String, allow_blank: false, regexp: /\A\w+\z/, desc: 'Unique id (alphanumerical)'
+                optional :email, type: String, allow_blank: false, regexp: VALID_EMAIL_REGEX, desc: 'Email'
+                optional :name, type: String, allow_blank: false, desc: 'Name'
+                optional :age, type: Integer, values: 0..150, desc: 'Age (0-150)'
+                optional :state, type: String, values: VALID_STATES, desc: 'State (BR)'
+                optional :job, type: String, allow_blank: false, desc: 'Job'
+            end
+
             def update_user_data(params)
-                $sample_data[params[:id]] = {
-                    :id => params[:id],
-                    :email => params[:email],
-                    :name => params[:name],
-                    :age => params[:age],
-                    :state => params[:state],
-                    :job => params[:job]
-                }
+                if not $sample_data[params[:id]]
+                    $sample_data[params[:id]] = {}
+                end
+
+                $sample_data[params[:id]][:id] = params[:id]
+
+                if params[:email]
+                    $sample_data[params[:id]][:email] = params[:email]
+                end
+                if params[:name]
+                    $sample_data[params[:id]][:name] = params[:name]
+                end
+                if params[:age]
+                    $sample_data[params[:id]][:age] = params[:age]
+                end
+                if params[:state]
+                    $sample_data[params[:id]][:state] = params[:state]
+                end
+                if params[:job]
+                    $sample_data[params[:id]][:job] = params[:job]
+                end
+
                 {}
             end
 
@@ -59,7 +82,7 @@ module UserSegmentation
 
             desc 'Create an user.'
             params do
-                use :user
+                use :user_post
             end
             post do
                 if $sample_data.key?(params[:id])
@@ -70,7 +93,7 @@ module UserSegmentation
 
             desc 'Update an user by id.'
             params do
-                use :user
+                use :user_put
             end
             put ':user_id' do
                 if params[:user_id] != params[:id]

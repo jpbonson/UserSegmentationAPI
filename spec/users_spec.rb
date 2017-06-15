@@ -127,6 +127,18 @@ describe UserSegmentation::API do
             expect(last_response.body).to eq success_msg.to_json
         end
 
+        it 'should partially update user' do
+            user = {
+                :id => 'annie',
+                :name => 'Annie C.'
+            }
+            success_msg = {}
+
+            put "/api/v1/users/#{user[:id]}", user.to_json, 'CONTENT_TYPE' => 'application/json'
+            expect(last_response.body).to eq success_msg.to_json
+            expect(last_response.status).to eq(200)
+        end
+
         it 'fail for user that does not exist' do
             user = create_user
             user[:id] = 'WHATEVER'
@@ -156,7 +168,7 @@ describe UserSegmentation::API do
     context 'GET /api/v1/users/:id' do
         it 'should get user' do
             user = create_user
-            user[:name] = 'Annie B.'
+            user[:name] = 'Annie C.'
 
             get "/api/v1/users/#{user[:id]}"
             expect(last_response.status).to eq(200)
@@ -178,7 +190,7 @@ describe UserSegmentation::API do
     context 'DELETE /api/v1/users/:id' do
         it 'should delete user' do
             user = create_user
-            user[:name] = 'Annie B.'
+            user[:name] = 'Annie C.'
 
             delete "/api/v1/users/#{user[:id]}"
             expect(last_response.status).to eq(200)
