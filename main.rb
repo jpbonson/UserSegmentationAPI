@@ -44,8 +44,7 @@ module UserSegmentation
                 requires :job, type: String, allow_blank: false, desc: 'Job'
             end
 
-            params :user_put do
-                requires :_id, type: String, allow_blank: false, regexp: /\A\w+\z/, desc: 'Unique id (alphanumerical)'
+            params :user_optional do
                 optional :email, type: String, allow_blank: false, regexp: VALID_EMAIL_REGEX, desc: 'Email'
                 optional :name, type: String, allow_blank: false, desc: 'Name'
                 optional :age, type: Integer, values: 0..150, desc: 'Age (0-150)'
@@ -69,8 +68,18 @@ module UserSegmentation
             end
 
             desc 'Return a list of users.'
+            params do
+                use :user_optional
+            end
             get do
-                @@collection.find().to_a
+                valid_query_params = ['email', 'name', 'age', 'state', 'job']
+                if not params.keys.all? {|key| valid_query_params.include?(key) }
+                    error!({
+                        error: 'Invalid query',
+                        detail: "The only valid query params are #{valid_query_params}"
+                    }, 400)
+                end
+                @@collection.find(params).to_a
             end
 
             desc 'Create an user.'
@@ -97,7 +106,8 @@ module UserSegmentation
 
             desc 'Update an user by id.'
             params do
-                use :user_put
+                requires :_id, type: String, allow_blank: false, regexp: /\A\w+\z/, desc: 'Unique id (alphanumerical)'
+                use :user_optional
             end
             put ':user_id' do
                 if params[:user_id] != params[:_id]
