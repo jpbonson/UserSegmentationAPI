@@ -1,5 +1,7 @@
 # TODO
 
 - allow filtering according to the requisites
-- improve code organization/readability according to best practices
 - use queries in url for segmentation criterias
+- improve code organization/readability according to best practices
+- use this: https://github.com/bbatsov/rubocop
+- check if mongodb in mongolab is working for heroku
