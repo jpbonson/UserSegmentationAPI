@@ -11,6 +11,7 @@ Ruby. Grape. MongoDB.
 # Installation
 
 ```
+sudo apt-get install mongodb
 bundle install
 ```
 
@@ -33,11 +34,11 @@ curl -v https://mighty-scrubland-86456.herokuapp.com/api/v1/users/annie
 ```
 
 ```
-curl -v -H "Content-Type: application/json" -X POST -d '{"id": "annie", "email":"annie@email.com", "name":"Annie A.", "age": 30, "state": "SC", "job": "dev"}' https://mighty-scrubland-86456.herokuapp.com/api/v1/users
+curl -v -H "Content-Type: application/json" -X POST -d '{"_id": "annie", "email":"annie@email.com", "name":"Annie A.", "age": 30, "state": "SC", "job": "dev"}' https://mighty-scrubland-86456.herokuapp.com/api/v1/users
 ```
 
 ```
-curl -v -H "Content-Type: application/json" -X PUT -d '{"id": "annie", "email":"annie@email.com", "name":"Annie B.", "age": 30, "state": "SC", "job": "dev"}' https://mighty-scrubland-86456.herokuapp.com/api/v1/users/annie
+curl -v -H "Content-Type: application/json" -X PUT -d '{"_id": "annie", "email":"annie@email.com", "name":"Annie B.", "age": 30, "state": "SC", "job": "dev"}' https://mighty-scrubland-86456.herokuapp.com/api/v1/users/annie
 ```
 
 ```

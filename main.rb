@@ -1,14 +1,27 @@
 require 'grape'
+require 'mongo'
 
 module UserSegmentation
     class API < Grape::API
+        include Mongo
+
         version 'v1', using: :path
         format :json
         prefix :api
 
-        self.logger.level = Logger::INFO
+        settings = {
+            :mongodb_host => '127.0.0.1',
+            :port => '27017',
+            :database => 'segmentation-api-dev'
+        }
+        if ENV['RACK_ENV'] == 'test'
+            settings[:database] = 'segmentation-api-test'
+        elsif ENV['RACK_ENV'] == 'production'
+            settings[:database] = 'segmentation-api-prod'
+        end
 
-        $sample_data = {}
+        $client = Mongo::Client.new("mongodb://#{settings[:mongodb_host]}:#{settings[:port]}/#{settings[:database]}")
+        $collection = $client[:users]
 
         helpers do
             VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
@@ -18,7 +31,7 @@ module UserSegmentation
                 'RR','SC','SP','SE','TO']
 
             params :user_post do
-                requires :id, type: String, allow_blank: false, regexp: /\A\w+\z/, desc: 'Unique id (alphanumerical)'
+                requires :_id, type: String, allow_blank: false, regexp: /\A\w+\z/, desc: 'Unique id (alphanumerical)'
                 requires :email, type: String, allow_blank: false, regexp: VALID_EMAIL_REGEX, desc: 'Email'
                 requires :name, type: String, allow_blank: false, desc: 'Name'
                 requires :age, type: Integer, values: 0..150, desc: 'Age (0-150)'
@@ -27,7 +40,7 @@ module UserSegmentation
             end
 
             params :user_put do
-                requires :id, type: String, allow_blank: false, regexp: /\A\w+\z/, desc: 'Unique id (alphanumerical)'
+                requires :_id, type: String, allow_blank: false, regexp: /\A\w+\z/, desc: 'Unique id (alphanumerical)'
                 optional :email, type: String, allow_blank: false, regexp: VALID_EMAIL_REGEX, desc: 'Email'
                 optional :name, type: String, allow_blank: false, desc: 'Name'
                 optional :age, type: Integer, values: 0..150, desc: 'Age (0-150)'
@@ -36,29 +49,27 @@ module UserSegmentation
             end
 
             def update_user_data(params)
-                if not $sample_data[params[:id]]
-                    $sample_data[params[:id]] = {}
-                end
+                user = {}
 
-                $sample_data[params[:id]][:id] = params[:id]
+                user[:_id] = params[:_id]
 
                 if params[:email]
-                    $sample_data[params[:id]][:email] = params[:email]
+                    user[:email] = params[:email]
                 end
                 if params[:name]
-                    $sample_data[params[:id]][:name] = params[:name]
+                    user[:name] = params[:name]
                 end
                 if params[:age]
-                    $sample_data[params[:id]][:age] = params[:age]
+                    user[:age] = params[:age]
                 end
                 if params[:state]
-                    $sample_data[params[:id]][:state] = params[:state]
+                    user[:state] = params[:state]
                 end
                 if params[:job]
-                    $sample_data[params[:id]][:job] = params[:job]
+                    user[:job] = params[:job]
                 end
 
-                {}
+                user
             end
 
             def logger
@@ -68,16 +79,17 @@ module UserSegmentation
 
         resource :users do
             desc 'Return an user by id.'
-            get ':id' do
-                if not $sample_data.key?(params[:id])
+            get ':_id' do
+                result = $collection.find({ :_id => params[:_id] }, { :limit => 1 }).first
+                if not result
                     error!({ error: 'User not found', detail: '' }, 404)
                 end
-                $sample_data[params[:id]]
+                result
             end
 
             desc 'Return a list of users.'
             get do
-                $sample_data.values
+                $collection.find().to_a
             end
 
             desc 'Create an user.'
@@ -85,10 +97,20 @@ module UserSegmentation
                 use :user_post
             end
             post do
-                if $sample_data.key?(params[:id])
+                if $collection.find({ :_id => params[:_id] }, { :limit => 1 }).first
                     error!({ error: 'User already exists', detail: '' }, 409)
                 end
-                update_user_data(params)
+
+                begin
+                    result = $collection.insert_one(update_user_data(params))
+                    if result.n == 1
+                        {}
+                    else
+                        error!({ error: 'Database error', detail: 'Could not create user' }, 500)
+                    end
+                rescue Exception => e
+                    error!({ error: 'Database error', detail: e.message }, 500)
+                end
             end
 
             desc 'Update an user by id.'
@@ -96,25 +118,27 @@ module UserSegmentation
                 use :user_put
             end
             put ':user_id' do
-                if params[:user_id] != params[:id]
+                if params[:user_id] != params[:_id]
                     error!(
                     {
                         error: 'User id in request is different from id in the object',
                         detail: ''
                     }, 400)
                 end
-                if not $sample_data.key?(params[:id])
+                result = $collection.find_one_and_update( { :_id => params[:_id] }, "$set" => update_user_data(params) )
+                if not result
                     error!({ error: 'User not found', detail: '' }, 404)
                 end
-                update_user_data(params)
+                {}
             end
 
             desc 'Delete an user by id.'
-            delete ':id' do
-                if not $sample_data.key?(params[:id])
+            delete ':_id' do
+                result = $collection.find_one_and_delete( { :_id => params[:_id] } )
+                if not result
                     error!({ error: 'User not found', detail: '' }, 404)
                 end
-                $sample_data.delete(params[:id])
+                result
             end
         end
     end

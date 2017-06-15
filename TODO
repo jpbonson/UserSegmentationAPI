@@ -1,9 +1,7 @@
 # TODO
 
-- use mongodb instead of a hash
 - allow filtering according to the requisites
 - improve code organization/readability according to best practices
 - improve logging
-- add CRUD for segmentation criterias
-- after mongodb: think about better/alternative options for id
-- check if variables are not a security threat?
+- use queries in url for segmentation criterias
+- check if variables scopes are not a security threat?

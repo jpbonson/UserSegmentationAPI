@@ -4,13 +4,15 @@ require './main'
 describe UserSegmentation::API do
     include Rack::Test::Methods
 
+    Mongo::Logger.logger.level = ::Logger::FATAL
+
     def app
         UserSegmentation::API
     end
 
     def create_user
         {
-            :id => 'annie',
+            :_id => 'annie',
             :email => 'annie@email.com',
             :name => 'Annie A.',
             :age => 30,
@@ -19,14 +21,18 @@ describe UserSegmentation::API do
         }
     end
 
+    after(:all) do
+        $client.database.drop()
+    end
+
     context 'POST /api/v1/users' do
         it 'should create user' do
             user = create_user
             success_msg = {}
 
             post '/api/v1/users', user.to_json, 'CONTENT_TYPE' => 'application/json'
-            expect(last_response.status).to eq(201)
             expect(last_response.body).to eq success_msg.to_json
+            expect(last_response.status).to eq(201)
         end
 
         it 'fail for user already created' do
@@ -47,7 +53,7 @@ describe UserSegmentation::API do
                 expected_values.each do |val|
                     it "fail for invalid id #{val}" do
                         user = create_user
-                        user[:id] = val
+                        user[:_id] = val
                         post '/api/v1/users', user.to_json, 'CONTENT_TYPE' => 'application/json'
                         expect(last_response.status).to eq(400)
                     end
@@ -122,26 +128,26 @@ describe UserSegmentation::API do
             user[:name] = 'Annie B.'
             success_msg = {}
 
-            put "/api/v1/users/#{user[:id]}", user.to_json, 'CONTENT_TYPE' => 'application/json'
+            put "/api/v1/users/#{user[:_id]}", user.to_json, 'CONTENT_TYPE' => 'application/json'
             expect(last_response.status).to eq(200)
             expect(last_response.body).to eq success_msg.to_json
         end
 
         it 'should partially update user' do
             user = {
-                :id => 'annie',
+                :_id => 'annie',
                 :name => 'Annie C.'
             }
             success_msg = {}
 
-            put "/api/v1/users/#{user[:id]}", user.to_json, 'CONTENT_TYPE' => 'application/json'
+            put "/api/v1/users/#{user[:_id]}", user.to_json, 'CONTENT_TYPE' => 'application/json'
             expect(last_response.body).to eq success_msg.to_json
             expect(last_response.status).to eq(200)
         end
 
         it 'fail for user that does not exist' do
             user = create_user
-            user[:id] = 'WHATEVER'
+            user[:_id] = 'WHATEVER'
             error_msg = {
                 :error => 'User not found',
                 :detail => ''
@@ -170,7 +176,7 @@ describe UserSegmentation::API do
             user = create_user
             user[:name] = 'Annie C.'
 
-            get "/api/v1/users/#{user[:id]}"
+            get "/api/v1/users/#{user[:_id]}"
             expect(last_response.status).to eq(200)
             expect(last_response.body).to eq user.to_json
         end
@@ -192,7 +198,7 @@ describe UserSegmentation::API do
             user = create_user
             user[:name] = 'Annie C.'
 
-            delete "/api/v1/users/#{user[:id]}"
+            delete "/api/v1/users/#{user[:_id]}"
             expect(last_response.status).to eq(200)
             expect(last_response.body).to eq user.to_json
         end
@@ -221,7 +227,7 @@ describe UserSegmentation::API do
         it 'should get a list of users' do
             user1 = create_user
             user2 = create_user
-            user2[:id] = 'blah'
+            user2[:_id] = 'blah'
 
             post '/api/v1/users', user1.to_json, 'CONTENT_TYPE' => 'application/json'
             post '/api/v1/users', user2.to_json, 'CONTENT_TYPE' => 'application/json'

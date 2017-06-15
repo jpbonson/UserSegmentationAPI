@@ -9,6 +9,9 @@ branches:
 rvm:
   - 2.4.0
 
+services:
+  - mongodb
+
 install:
   - bundle install
 
