@@ -82,7 +82,8 @@ module UserSegmentation
                     if result.n == 1
                         {}
                     else
-                        error!({ error: 'Database error', detail: 'Could not create user' }, 500)
+                        msg_detail = "Could not create user, n: #{result.n}, ok: #{result.ok?}"
+                        error!({ error: 'Database error', detail: msg_detail }, 500)
                     end
                 rescue Exception => e
                     error!({ error: 'Database error', detail: e.message }, 500)
