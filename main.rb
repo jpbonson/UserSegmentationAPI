@@ -20,7 +20,12 @@ module UserSegmentation
             settings[:database] = 'segmentation-api-prod'
         end
 
-        @@client = Mongo::Client.new("mongodb://#{settings[:mongodb_host]}:#{settings[:port]}/#{settings[:database]}")
+        mongo_uri = "mongodb://#{settings[:mongodb_host]}:#{settings[:port]}/#{settings[:database]}"
+        if ENV['MONGODB_URI']
+            mongo_uri = ENV['MONGODB_URI']
+        end
+
+        @@client = Mongo::Client.new(mongo_uri)
         @@collection = @@client[:users]
 
         helpers do
