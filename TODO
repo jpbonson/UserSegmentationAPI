@@ -1,7 +1,7 @@
 # TODO
 
-- allow filtering according to the requisites
-- use queries in url for segmentation criterias
+- allow filtering according to the missing requisites
 - improve code organization/readability according to best practices
 - use this: https://github.com/bbatsov/rubocop
 - check if mongodb in mongolab is working for heroku
+- use factory to generate/test objects

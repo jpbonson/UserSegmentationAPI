@@ -53,6 +53,10 @@ curl -v http://localhost:9999/api/v1/users
 curl -v http://localhost:9999/api/v1/users?state=SC&age=30
 ```
 
+```
+curl -v http://localhost:9999/api/v1/users?state=SC&age=30&logic_op=or
+```
+
 # Examples (Heroku)
 
 Obs.: I am getting 'HTTP/1.1 503 Service Unavailable' when trying to use mongodb by the mongolab addon. I guess the DB wasn't up yet. So I deployed at Heroku with an older version of the code (commit 4185b8820682f82523d8b17b97bc1c19cd0a7444).

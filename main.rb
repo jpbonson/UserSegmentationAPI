@@ -72,14 +72,37 @@ module UserSegmentation
                 use :user_optional
             end
             get do
-                valid_query_params = ['email', 'name', 'age', 'state', 'job']
+                valid_query_params = ['logic_op', 'email', 'name', 'age', 'state', 'job']
                 if not params.keys.all? {|key| valid_query_params.include?(key) }
                     error!({
                         error: 'Invalid query',
                         detail: "The only valid query params are #{valid_query_params}"
                     }, 400)
                 end
-                @@collection.find(params).to_a
+
+                valid_logic_ops = ['and', 'or']
+                if params.key?('logic_op') and params.keys.size > 1
+                    if not valid_logic_ops.include?(params['logic_op'])
+                        error!({
+                            error: 'Invalid query',
+                            detail: "The only valid logic operators are #{valid_logic_ops}"
+                        }, 400)
+                    end
+
+                    if params['logic_op'] == 'or'
+                        new_params = []
+                        params.each do |key, value|
+                            if key != 'logic_op'
+                                new_params.push({ key => value })
+                            end
+                        end
+                        return @@collection.find({ '$or' => new_params }).to_a
+                    end
+                end
+                if params.key?('logic_op')
+                    params.delete('logic_op')
+                end
+                return @@collection.find(params).to_a
             end
 
             desc 'Create an user.'
