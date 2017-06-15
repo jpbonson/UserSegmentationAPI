@@ -67,6 +67,7 @@ describe UserSegmentation::API do
         it 'should get a list of all users' do
             get '/api/v1/users'
             parsed_body = JSON.parse(last_response.body)
+            expect(parsed_body.length).to be(4)
             expect(parsed_body[0]).to eq user1.stringify_keys()
             expect(parsed_body[1]).to eq user2.stringify_keys()
             expect(parsed_body[2]).to eq user3.stringify_keys()
@@ -77,6 +78,7 @@ describe UserSegmentation::API do
         it 'should get a list of users with name Annie A.' do
             get '/api/v1/users?name=Annie%20A.'
             parsed_body = JSON.parse(last_response.body)
+            expect(parsed_body.length).to be(1)
             expect(parsed_body[0]).to eq user1.stringify_keys()
             expect(last_response.status).to eq(200)
         end
@@ -84,6 +86,7 @@ describe UserSegmentation::API do
         it 'should get a list of users with 30 years' do
             get '/api/v1/users?age=30'
             parsed_body = JSON.parse(last_response.body)
+            expect(parsed_body.length).to be(2)
             expect(parsed_body[0]).to eq user1.stringify_keys()
             expect(parsed_body[1]).to eq user4.stringify_keys()
             expect(last_response.status).to eq(200)
@@ -101,6 +104,7 @@ describe UserSegmentation::API do
         it 'should get a list of users with 30 years or live in SC' do
             get '/api/v1/users?age=30&state=SC&logic_op=or'
             parsed_body = JSON.parse(last_response.body)
+            expect(parsed_body.length).to be(3)
             expect(parsed_body[0]).to eq user1.stringify_keys()
             expect(parsed_body[1]).to eq user3.stringify_keys()
             expect(parsed_body[2]).to eq user4.stringify_keys()
