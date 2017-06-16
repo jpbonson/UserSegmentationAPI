@@ -6,8 +6,6 @@ API that allows the segmentation of users according to custom filters.
 
 Ruby. Grape. MongoDB.
 
-[WORK IN PROGRESS (see TODO and REFERENCES in the main directory)]
-
 # Installation
 
 ```
