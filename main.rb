@@ -70,6 +70,8 @@ module UserSegmentation
             desc 'Return a list of users.'
             params do
                 use :user_optional
+                optional :logic_op, type: String
+                optional :age_op, type: String
                 optional :email_regex, type: String, allow_blank: false, regexp: VALID_EMAIL_REGEX, desc: 'Email'
                 optional :name_regex, type: String, allow_blank: false, desc: 'Name'
                 optional :job_regex, type: String, allow_blank: false, desc: 'Job'
@@ -113,7 +115,6 @@ module UserSegmentation
                     end
 
                     params['age'] = { "$#{params['age_op']}" => params['age'] }
-
                     params.delete('age_op')
                 end
 
