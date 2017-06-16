@@ -50,15 +50,19 @@ curl -v http://localhost:9999/api/v1/users
 ```
 
 ```
-curl -v http://localhost:9999/api/v1/users?state=SC&age=30
+curl -v "http://localhost:9999/api/v1/users?state=SC&age=30"
 ```
 
 ```
-curl -v http://localhost:9999/api/v1/users?state=SC&age=30&logic_op=or
+curl -v "http://localhost:9999/api/v1/users?state=SC&age=30&logic_op=or"
 ```
 
 ```
-curl -v http://localhost:9999/api/v1/users?state=SC&age=30&logic_op=or&age_op=gte
+curl -v "http://localhost:9999/api/v1/users?state=SC&age=30&logic_op=or&age_op=gte"
+```
+
+```
+curl -v "http://localhost:9999/api/v1/users?job_regex=dev\z"
 ```
 
 # Examples (Heroku)

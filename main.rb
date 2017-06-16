@@ -70,9 +70,16 @@ module UserSegmentation
             desc 'Return a list of users.'
             params do
                 use :user_optional
+                optional :email_regex, type: String, allow_blank: false, regexp: VALID_EMAIL_REGEX, desc: 'Email'
+                optional :name_regex, type: String, allow_blank: false, desc: 'Name'
+                optional :job_regex, type: String, allow_blank: false, desc: 'Job'
+                mutually_exclusive :email, :email_regex
+                mutually_exclusive :name, :name_regex
+                mutually_exclusive :job, :job_regex
             end
             get do
-                valid_query_params = ['logic_op', 'age_op', 'email', 'name', 'age', 'state', 'job']
+                valid_query_params = ['logic_op', 'age_op', 'email', 'name', 'age',
+                    'state', 'job', 'email_regex', 'name_regex', 'job_regex']
                 if not params.keys.all? {|key| valid_query_params.include?(key) }
                     error!({
                         error: 'Invalid query',
@@ -82,6 +89,18 @@ module UserSegmentation
 
                 if params.key?('age_op') and not params.key?('age')
                     params.delete('age_op')
+                end
+                if params.key?('email_regex')
+                    params['email'] = { '$regex' => params['email_regex'] }
+                    params.delete('email_regex')
+                end
+                if params.key?('name_regex')
+                    params['name'] = { '$regex' => params['name_regex'] }
+                    params.delete('name_regex')
+                end
+                if params.key?('job_regex')
+                    params['job'] = { '$regex' => params['job_regex'] }
+                    params.delete('job_regex')
                 end
 
                 valid_numeric_ops = ['lte', 'lt', 'gte', 'gt']
