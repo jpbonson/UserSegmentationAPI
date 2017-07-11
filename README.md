@@ -62,27 +62,3 @@ curl -v "http://localhost:9999/api/v1/users?state=SC&age=30&logic_op=or&age_op=g
 ```
 curl -v "http://localhost:9999/api/v1/users?job_regex=dev\z"
 ```
-
-# Examples (Heroku)
-
-Obs.: I am getting 'HTTP/1.1 503 Service Unavailable' when trying to use mongodb by the mongolab addon. I guess the DB wasn't up yet. So I deployed at Heroku with an older version of the code (commit 4185b8820682f82523d8b17b97bc1c19cd0a7444).
-
-```
-curl -v https://mighty-scrubland-86456.herokuapp.com/api/v1/users/annie
-```
-
-```
-curl -v -H "Content-Type: application/json" -X POST -d '{"id": "annie", "email":"annie@email.com", "name":"Annie A.", "age": 30, "state": "SC", "job": "dev"}' https://mighty-scrubland-86456.herokuapp.com/api/v1/users
-```
-
-```
-curl -v -H "Content-Type: application/json" -X PUT -d '{"id": "annie", "email":"annie@email.com", "name":"Annie B.", "age": 30, "state": "SC", "job": "dev"}' https://mighty-scrubland-86456.herokuapp.com/api/v1/users/annie
-```
-
-```
-curl -v -X "DELETE" https://mighty-scrubland-86456.herokuapp.com/api/v1/users/annie
-```
-
-```
-curl -v https://mighty-scrubland-86456.herokuapp.com/api/v1/users
-```
