@@ -6,26 +6,30 @@ API that allows the segmentation of users according to custom filters.
 
 Ruby. Grape. MongoDB.
 
-# Installation
+### How to install? ###
 
 ```
 sudo apt-get install mongodb
+rvm install "ruby-2.4.0"
+gem install bundler
 bundle install
 ```
 
-# Execution
+### How to run? ###
 
 ```
 bundle exec rackup config.ru -p 9999
 ```
 
-# Tests
+### How to test? ###
 
 ```
 bundle exec rake
 ```
 
-# Examples (current code)
+### API Routes ###
+
+## Users
 
 ```
 curl -v http://localhost:9999/api/v1/users/annie
