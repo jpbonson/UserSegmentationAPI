@@ -1,7 +1,0 @@
-# TODO
-
-- refactor 'main.rb' code organization/readability according to best practices for ruby + separate into more files + remove code duplication
-- separate 'users_list_spec.rb' into more files
-- use this: https://github.com/bbatsov/rubocop
-- use factory to generate objects in the tests (FactoryGirl?)
-- more tests for the regex feature to find edge cases
